@@ -1,45 +1,39 @@
-def len_set(set):
-    len = 0
-    for e in set:
-        len += 1
-    return len
+import numpy as np
 
 
-def sum_set(set):
-    sum = 0
-    for e in set:
-        sum += e
-    return sum
+def mean(arr):
+    total_sum = 0
+    for val in arr:
+        if np.isnan(val):
+            continue
+        total_sum += val
+    return total_sum / len(arr)
 
 
-def mean(set):
-    return sum_set(set) / len_set(set)
+def std(arr, mean_val):
+    variance_sum = 0
+    for val in arr:
+        if np.isnan(val):
+            continue
+        variance_sum += (val - mean_val) ** 2
+    variance = variance_sum / len(arr)
+    return variance ** 0.5
 
 
-def std(set, mean):
-    return (sum_set((x - mean) ** 2 for x in set) / len_set(set)) ** 0.5
+def sigmoid(x):
+    # x = np.clip(x, -500, 500)
+    return 1 / (1 + np.exp(-x))
 
 
-def abs(x):
-    return x if x >= 0 else -x
-
-
-def exp(x, terms=1000):
-    result = 1
-    term = 1
-    for i in range(1, terms):
-        term *= x / i
-        result += term
-        if abs(term) < 1e-15:
-            break
-    return result
-
-
-def log(x, tolerance=1e-7):
-    if x <= 0:
-        raise ValueError("Logarithm is undefined for non-positive values.")
-
-    y = 0  # Initial guess
-    while abs(exp(y) - x) > tolerance:
-        y -= (exp(y) - x) / exp(y)  # Newton-Raphson update
-    return y
+def argmax(array):
+    max_indices = []
+    for row in range(array.shape[0]):
+        row_values = array[row, :]
+        max_value = row_values[0]
+        max_index = 0
+        for i in range(1, len(row_values)):
+            if row_values[i] > max_value:
+                max_value = row_values[i]
+                max_index = i
+        max_indices.append(max_index)
+    return max_indices
