@@ -3,7 +3,20 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import sys
 
+
 def plot_histograms(file_path):
+    """
+    Plots histograms for each course's score distribution,
+    colored by Hogwarts House.
+
+    Parameters:
+        file_path (str): The path to the CSV file containing the dataset.
+
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        ValueError: If the 'Hogwarts House' column is missing
+        or if all course data is NaN.
+    """
     try:
         # Charger les données
         data = pd.read_csv(file_path)
@@ -76,6 +89,7 @@ def plot_histograms(file_path):
 
     # Afficher les graphiques
     plt.show()
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
