@@ -161,10 +161,8 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     try:
         data = pd.read_csv(file_path)
-    except FileNotFoundError:
-        print(f"Erreur : Fichier '{file_path}' introuvable.")
+        stats = describe(data)
+        print(stats.to_string())
+    except Exception as e:
+        print(f"Error : {e}")
         sys.exit(1)
-
-    # Générer et afficher les statistiques descriptives
-    stats = describe(data)
-    print(stats.to_string())

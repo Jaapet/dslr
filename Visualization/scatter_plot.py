@@ -93,6 +93,9 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage : python scatter_plot.py <dataset.csv>")
         sys.exit(1)
-
-    file_path = sys.argv[1]
-    scatter_plot(file_path)
+    try:
+        file_path = sys.argv[1]
+        scatter_plot(file_path)
+    except Exception as e:
+        print(f"Error : {e}")
+        sys.exit(1)
